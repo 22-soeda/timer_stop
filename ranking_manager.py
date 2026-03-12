@@ -1,8 +1,33 @@
+import json
+import os
+
 class RankingManager:
     def __init__(self):
-        # ランキングを保持するリスト
+        # 保存先ファイルのパス
+        self.filename = 'ranking_data.json'
         self.ranking = []
         
+        # クラスが呼び出された時、ファイルがあれば読み込む
+        self.load_data()
+        
+    def load_data(self):
+        """JSONファイルからランキングデータを読み込む"""
+        if os.path.exists(self.filename):
+            try:
+                with open(self.filename, 'r', encoding='utf-8') as f:
+                    self.ranking = json.load(f)
+            except json.JSONDecodeError:
+                # ファイルが空や壊れている場合は空リストで初期化
+                self.ranking = []
+        else:
+            self.ranking = []
+
+    def save_data(self):
+        """ランキングデータをJSONファイルに保存する"""
+        with open(self.filename, 'w', encoding='utf-8') as f:
+            # 日本語が文字化けしないように ensure_ascii=False を指定
+            json.dump(self.ranking, f, ensure_ascii=False, indent=4)
+
     def add_record(self, name, score, diff):
         record = {"name": name, "score": score, "diff": diff}
         
@@ -39,9 +64,14 @@ class RankingManager:
             # 引数なしの pop() はリストの一番最後を削除します
             self.ranking.pop()
             
+        # ★記録が更新されたので、ファイルに保存する★
+        self.save_data()
+            
     def get_ranking(self):
         return self.ranking
         
     def clear_all(self):
-        # 【clear】リストの中身をすべて空にする（※今回はリセット用として用意）
+        # 【clear】リストの中身をすべて空にする
         self.ranking.clear()
+        # ★クリアした状態をファイルに保存する★
+        self.save_data()
