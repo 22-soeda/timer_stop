@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ピタッと！ストップ</title>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1 class="game-title">ピタッと！ストップ</h1>
+    <p class="subtitle">目標タイムにピッタリ止めよう♪</p>
+
+    <div class="game-board">
+        <div class="target-box">
+            <p class="target-label">★ もくひょうタイム ★</p>
+            <div class="small-segment" style="display: flex; justify-content: center;">
+                <div class="seven-segment" id="targetDisplay">
+                    <div class="digit-container" id="target-tens"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                    <div class="digit-container" id="target-ones"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                    <div class="dot" id="target-dot"></div>
+                    <div class="digit-container" id="target-tenths"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                    <div class="digit-container" id="target-hundredths"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timer-container">
+            <div class="shutter" id="shutter"></div>
+            <div class="seven-segment">
+                <div class="digit-container" id="counter-tens"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                <div class="digit-container" id="counter-ones"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                <div class="dot" id="counter-dot"></div>
+                <div class="digit-container" id="counter-tenths"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+                <div class="digit-container" id="counter-hundredths"><div class="segment a"></div><div class="segment b"></div><div class="segment c"></div><div class="segment d"></div><div class="segment e"></div><div class="segment f"></div><div class="segment g"></div></div>
+            </div>
+        </div>
+
+        <div class="name-input-area">
+            <input type="text" id="playerName" placeholder="プレイヤー名を入力 (任意)" maxlength="10">
+        </div>
+
+        <div class="button-group">
+            <button id="startBtn" class="btn-start" onclick="startGame()">スタート！</button>
+            <button id="stopBtn" class="btn-stop" onclick="stopGame()" disabled>ストップ！</button>
+            <button id="resetBtn" class="btn-reset" onclick="initTarget()" style="display: none;">もう一度遊ぶ</button>
+        </div>
+
+        <div class="result-box" id="resultDisplay"></div>
+        
+        <div class="ranking-board">
+            <h3>🏆 トップランカー 🏆</h3>
+            <ul id="rankingList">
+                <li>まだ記録がありません</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
